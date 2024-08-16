@@ -1,4 +1,3 @@
-mod tokenizer;
 mod lexer;
 
 fn main() {
