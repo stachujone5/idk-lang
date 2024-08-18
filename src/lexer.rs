@@ -36,7 +36,7 @@ pub enum Token {
     Eof,
 }
 
-struct Lexer {
+pub struct Lexer {
     input: Vec<u8>,
     position: usize,
     read_position: usize,
@@ -44,7 +44,7 @@ struct Lexer {
 }
 
 impl Lexer {
-    fn new(input: String) -> Self {
+    pub fn new(input: String) -> Self {
         let mut lexer = Lexer {
             input: input.into_bytes(),
             position: 0,
@@ -108,7 +108,7 @@ impl Lexer {
         self.input[self.read_position]
     }
 
-    fn next_token(&mut self) -> Token {
+    pub fn next_token(&mut self) -> Token {
         self.skip_whitespace();
 
         let t = match self.ch {
@@ -182,6 +182,27 @@ impl Lexer {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn x() {
+        let input = String::from("let x = 10;");
+
+        let tokens = vec![
+            Token::Let,
+            Token::Ident(String::from("x")),
+            Token::Assign,
+            Token::Int(String::from("10")),
+            Token::Semicolon,
+        ];
+
+        let mut lexer = Lexer::new(input);
+
+        for current_token in tokens {
+            let next_token = lexer.next_token();
+
+            assert_eq!(current_token, next_token);
+        }
+    }
 
     #[test]
     fn next_token() {
