@@ -184,27 +184,6 @@ mod tests {
     use super::*;
 
     #[test]
-    fn x() {
-        let input = String::from("let x = 10;");
-
-        let tokens = vec![
-            Token::Let,
-            Token::Ident(String::from("x")),
-            Token::Assign,
-            Token::Int(String::from("10")),
-            Token::Semicolon,
-        ];
-
-        let mut lexer = Lexer::new(input);
-
-        for current_token in tokens {
-            let next_token = lexer.next_token();
-
-            assert_eq!(current_token, next_token);
-        }
-    }
-
-    #[test]
     fn next_token() {
         let input = String::from(
             r#"
